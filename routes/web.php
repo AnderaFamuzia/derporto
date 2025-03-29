@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\frontcontroller;
 use App\Http\Controllers\ProfileController;
+use Doctrine\DBAL\Schema\Index;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [frontcontroller::class, 'index'])->name('front.index');
+Route::get('/details', [frontcontroller::class, 'details'])->name('front.details');
+Route::get('/book', [frontcontroller::class, 'book'])->name('front.book');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -28,4 +30,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
