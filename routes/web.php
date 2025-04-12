@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\frontcontroller;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ProjectOrderController;
+use App\Http\Controllers\ToolController;
 use Doctrine\DBAL\Schema\Index;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +31,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::prefix('admin')->name('admin.')->group(function(){
+    Route::resource('projects', ProjectController::class);
+    Route::resource('tools', ToolController::class);
+    Route::resource('order', ProjectOrderController::class);
+    });
 });
 
 require __DIR__ . '/auth.php';
